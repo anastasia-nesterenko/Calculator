@@ -1,5 +1,7 @@
 # Calculator
 
+Have to:
+
 * use decimal instead of int 
 
 * add a possibility of calculating sequences
