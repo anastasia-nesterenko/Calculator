@@ -73,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
                     buffer.append(number.getText().toString());
                     Object result = engine.eval(buffer.toString());
                     number.setText(result.toString());
-                    System.out.println("You !!!" + result);
                 } catch (Exception ex) {
-                    System.out.println("You hit !!!" + ex);
+                    System.out.println("There ia an exception: " + ex);
                 }
                 buffer.setLength(0);
             }
