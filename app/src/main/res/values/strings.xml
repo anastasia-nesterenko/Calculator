@@ -17,4 +17,7 @@
     <string name="minus" >-</string>
     <string name="plus">+</string>
     <string name="enter_number">enter number</string>
+    <string name="left_bracket">(</string>
+    <string name="right_bracket">)</string>
+    <string name="decimal_point">.</string>
 </resources>

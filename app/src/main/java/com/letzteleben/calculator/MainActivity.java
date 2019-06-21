@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
@@ -15,10 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //TODO 1 add brackets
-        //TODO 2 add decimal point
-
         ScriptEngineManager manager = new ScriptEngineManager();
         final ScriptEngine engine = manager.getEngineByName("js");
 
@@ -30,38 +27,30 @@ public class MainActivity extends AppCompatActivity {
         final CharSequence sequence = "";
         final StringBuffer buffer = new StringBuffer(sequence);
 
-        final Button operations[] = new Button[4];
-        operations[0] = findViewById(R.id.buttonPlus);
-        operations[1] = findViewById(R.id.buttonMinus);
-        operations[2] = findViewById(R.id.buttonMultiply);
-        operations[3] = findViewById(R.id.buttonDivide);
-
-        for (final Button operation : operations) {
-            operation.setOnClickListener(new View.OnClickListener() {
+        Button buttons[] = new Button[17];
+        buttons[0] = findViewById(R.id.button0);
+        buttons[1] = findViewById(R.id.button1);
+        buttons[2] = findViewById(R.id.button2);
+        buttons[3] = findViewById(R.id.button3);
+        buttons[4] = findViewById(R.id.button4);
+        buttons[5] = findViewById(R.id.button5);
+        buttons[6] = findViewById(R.id.button6);
+        buttons[7] = findViewById(R.id.button7);
+        buttons[8] = findViewById(R.id.button8);
+        buttons[9] = findViewById(R.id.button9);
+        buttons[10] = findViewById(R.id.buttonPlus);
+        buttons[11] = findViewById(R.id.buttonMinus);
+        buttons[12] = findViewById(R.id.buttonMultiply);
+        buttons[13] = findViewById(R.id.buttonDivide);
+        buttons[14] = findViewById(R.id.buttonLeftBracket);
+        buttons[15] = findViewById(R.id.buttonRighttBracket);
+        buttons[16] = findViewById(R.id.buttonPoint);
+        
+        for (final Button button : buttons) {
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    number.append(operation.getText().toString());
-                }
-            });
-        }
-
-        Button digits[] = new Button[10];
-        digits[0] = findViewById(R.id.button0);
-        digits[1] = findViewById(R.id.button1);
-        digits[2] = findViewById(R.id.button2);
-        digits[3] = findViewById(R.id.button3);
-        digits[4] = findViewById(R.id.button4);
-        digits[5] = findViewById(R.id.button5);
-        digits[6] = findViewById(R.id.button6);
-        digits[7] = findViewById(R.id.button7);
-        digits[8] = findViewById(R.id.button8);
-        digits[9] = findViewById(R.id.button9);
-
-        for (final Button digit : digits) {
-            digit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    number.append(digit.getText());
+                    number.append(button.getText());
                 }
             });
         }
