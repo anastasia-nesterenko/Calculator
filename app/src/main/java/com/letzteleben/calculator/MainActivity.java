@@ -5,40 +5,42 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText number;
     Button equal, cancel;
-    int totalSum;
-    String operation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //TODO 1 add brackets
+        //TODO 2 add decimal point
+
+        ScriptEngineManager manager = new ScriptEngineManager();
+        final ScriptEngine engine = manager.getEngineByName("js");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         number = findViewById(R.id.number);
         equal = findViewById(R.id.buttonEqual);
         cancel = findViewById(R.id.buttonC);
-        totalSum = 0;
-        operation = "na";
+        final CharSequence sequence = "";
+        final StringBuffer buffer = new StringBuffer(sequence);
 
-        Button mOperations[] = new Button[4];
-        mOperations[0] = findViewById(R.id.buttonPlus);
-        mOperations[1] = findViewById(R.id.buttonMinus);
-        mOperations[2] = findViewById(R.id.buttonMultiply);
-        mOperations[3] = findViewById(R.id.buttonDivide);
+        final Button operations[] = new Button[4];
+        operations[0] = findViewById(R.id.buttonPlus);
+        operations[1] = findViewById(R.id.buttonMinus);
+        operations[2] = findViewById(R.id.buttonMultiply);
+        operations[3] = findViewById(R.id.buttonDivide);
 
-        for (final Button mOperation : mOperations) {
-            mOperation.setOnClickListener(new View.OnClickListener() {
+        for (final Button operation : operations) {
+            operation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (operation.equals("na")) {
-                        totalSum = Integer.parseInt(number.getText().toString());
-                        operation = mOperation.getTag().toString();
-                        number.setText("");
-                    }
+                    number.append(operation.getText().toString());
                 }
             });
         }
@@ -55,45 +57,34 @@ public class MainActivity extends AppCompatActivity {
         digits[8] = findViewById(R.id.button8);
         digits[9] = findViewById(R.id.button9);
 
-        int index = 0;
         for (final Button digit : digits) {
-            final int finalIndex = index;
             digit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (number.getText().toString().length() > 0)
-                        number.setText((String.format("%s%s", number.getText().toString(), String.valueOf(finalIndex))).replaceAll("^0d*", ""));
-                    else
-                        number.setText(String.valueOf(finalIndex));
+                    number.append(digit.getText());
                 }
             });
-            index++;
         }
 
         equal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (operation.equals("plus"))
-                    totalSum += Integer.parseInt(number.getText().toString());
-                else if (operation.equals("minus"))
-                    totalSum -= Integer.parseInt(number.getText().toString());
-                else if (operation.equals("multiply"))
-                    totalSum *= Integer.parseInt(number.getText().toString());
-                else if (operation.equals("divide"))
-                    if (!number.getText().toString().equals("0"))
-                        totalSum /= Integer.parseInt(number.getText().toString());
-                    else
-                        Toast.makeText(getApplicationContext(), "Are you sure you want to divide by 0?", Toast.LENGTH_SHORT).show();
-                number.setText(Integer.toString(totalSum));
-                operation = "na";
+                try {
+                    buffer.append(number.getText().toString());
+                    Object result = engine.eval(buffer.toString());
+                    number.setText(result.toString());
+                    System.out.println("You !!!" + result);
+                } catch (Exception ex) {
+                    System.out.println("You hit !!!" + ex);
+                }
+                buffer.setLength(0);
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                operation = "na";
-                totalSum = 0;
+                buffer.setLength(0);
                 number.setText("");
             }
         });

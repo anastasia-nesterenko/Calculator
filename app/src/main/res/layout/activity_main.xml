@@ -16,7 +16,6 @@
         android:ems="10"
         android:gravity="right"
         android:hint="enter number"
-        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
